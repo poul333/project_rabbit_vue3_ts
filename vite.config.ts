@@ -3,11 +3,16 @@ import vue from "@vitejs/plugin-vue";
 // const path = require("path");
 import { resolve } from "path";
 // 组件name插件
-import vueSetupExtend from 'vite-plugin-vue-setup-extend'
+import vueSetupExtend from "vite-plugin-vue-setup-extend";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(),vueSetupExtend()],
+  plugins: [
+    vue({
+      reactivityTransform: true,
+    }),
+    vueSetupExtend(),
+  ],
   // 配置路径别名
   resolve: {
     alias: {
