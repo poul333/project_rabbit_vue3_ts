@@ -43,8 +43,20 @@ export interface NewGoodItem {
 
 // 首页人气推荐数据类型
 export interface HotGoods {
-  id: string
-  picture: string
-  title: string
-  alt: string
+  id: string;
+  picture: string;
+  title: string;
+  alt: string;
 }
+
+// 首页热门品牌数据类型
+export type Brand = {
+  id: string;
+  name: string;
+  nameEn: string;
+  logo: string;
+  picture: string;
+  type?: any;
+  desc: string;
+  place: string;
+};
