@@ -17,13 +17,18 @@ export default defineStore("home", {
     },
 
     async getNewList() {
-      const res = await request.get<ApiRes<NewGoodItem[]>>("/home/new");
-      this.newGoodList = res.data.result;
+      // 开启定时器查看骨架屏效果
+      setTimeout(async () => {
+        const res = await request.get<ApiRes<NewGoodItem[]>>("/home/new");
+        this.newGoodList = res.data.result;
+      }, 1000);
     },
 
     async getHotList() {
-      const res = await request.get<ApiRes<HotGoods[]>>("/home/hot");
-      this.hotGoodList = res.data.result;
+      setTimeout(async () => {
+        const res = await request.get<ApiRes<HotGoods[]>>("/home/hot");
+        this.hotGoodList = res.data.result;
+      }, 1000);
     },
   },
 });

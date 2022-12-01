@@ -28,10 +28,10 @@ const goods = computed(() => {
                 </template>
 
                 <template v-else>
-                    <XTXSkeleeton :width="60" :height="20" animated bg="rgba(255,255,255,0.2)" fade
-                        style="margin-left: 5px;"></XTXSkeleeton>
-                    <XTXSkeleeton :width="60" :height="20" animated bg="rgba(255,255,255,0.2)" fade
-                        style="margin-left: 5px;"></XTXSkeleeton>
+                    <XtxSkeleton :width="60" :height="20" animated bg="rgba(255,255,255,0.2)" fade
+                        style="margin-left: 5px;"></XtxSkeleton>
+                    <XtxSkeleton :width="60" :height="20" animated bg="rgba(255,255,255,0.2)" fade
+                        style="margin-left: 5px;"></XtxSkeleton>
                 </template>
             </li>
         </ul>

@@ -4,14 +4,14 @@ import App from "./App.vue";
 import router from "./router";
 import "normalize.css";
 import "@/assets/styles/common.less";
-import XTXSkeleeton from "@/components/skeleton/index.vue";
+import XtxSkeleton from "@/components/skeleton/index.vue";
 import XtxUI from './components'
 // import XtxCarousel from "@/components/carousel/index.vue";
 
 const app = createApp(App);
 const pinia = createPinia();
 
-app.component("XTXSkeleeton", XTXSkeleeton);
+app.component("XtxSkeleton", XtxSkeleton);
 app.use(XtxUI)
 // app.component(XtxCarousel.name, XtxCarousel);
 
