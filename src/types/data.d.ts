@@ -30,3 +30,21 @@ export interface BannerItem {
   hrefUrl: string;
   type: string;
 }
+
+// 首页新鲜好物数据类型
+export interface NewGoodItem {
+  id: string;
+  name: string;
+  desc: string;
+  price: string;
+  picture: string;
+  orderNum: number;
+}
+
+// 首页人气推荐数据类型
+export interface HotGoods {
+  id: string
+  picture: string
+  title: string
+  alt: string
+}
