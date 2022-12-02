@@ -1,38 +1,41 @@
 <script lang="ts" setup name="HomeProduct">
+import useStore from '@/store';
 import HomePanel from './home-panel.vue'
+import { useLazyData } from '@/utils/hooks'
+const { home } = useStore()
+const target = useLazyData(() => {
+    home.getProductList()
+})
 </script>
+
 <template>
-    <div class="home-product">
-        <HomePanel title="生鲜" sub-title="" v-for="i in 4" :key="i">
+    <div class="home-product" ref="target">
+        <HomePanel :title="item.name" sub-title="" v-for="item in home.productList" :key="item.id">
             <template v-slot:right>
                 <div class="sub">
-                    <RouterLink to="/">海鲜</RouterLink>
-                    <RouterLink to="/">水果</RouterLink>
-                    <RouterLink to="/">蔬菜</RouterLink>
-                    <RouterLink to="/">水产</RouterLink>
-                    <RouterLink to="/">禽肉</RouterLink>
+                    <RouterLink to="/" v-for="sub in item.children" :key="sub.id">
+                        {{ sub.name }}
+                    </RouterLink>
                 </div>
                 <XtxMore />
             </template>
             <div class="box">
                 <RouterLink class="cover" to="/">
-                    <img src="https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/home_goods_cover.jpg"
-                        alt="" />
+                    <img :style="{ objectFit: 'cover' }" v-lazy="item.picture" alt="" />
                     <strong class="label">
-                        <span>生鲜馆</span>
-                        <span>全场3件7折</span>
+                        <span>{{ item.name }}</span>
+                        <span>{{ item.saleInfo.slice(0, 4) }}</span>
                     </strong>
                 </RouterLink>
                 <ul class="goods-list">
-                    <li v-for="i in 8" :key="i">
+                    <li v-for="goods in item.goods" :key="goods.id">
                         <div class="goods-item">
                             <RouterLink to="/" class="image">
-                                <img src="https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/home_goods_cover.jpg"
-                                    alt="" />
+                                <img v-lazy="goods.picture" alt="" />
                             </RouterLink>
-                            <p class="name ellipsis-2">美威 智利原味三文鱼排 240g/袋 4片装</p>
-                            <p class="desc">海鲜年货</p>
-                            <p class="price">&yen;108.00</p>
+                            <p class="name ellipsis-2">{{ goods.name }}</p>
+                            <p class="desc ellipsis">{{ goods.desc }}</p>
+                            <p class="price">&yen;{{ goods.price }}</p>
                             <div class="extra">
                                 <RouterLink to="/">
                                     <span>找相似</span>

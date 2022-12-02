@@ -5,12 +5,18 @@ import { ref } from "vue";
 export function useLazyData(apiFn: () => void) {
   const target = ref(null);
   // 组件数据懒加载
-  const { stop } = useIntersectionObserver(target, ([{ isIntersecting }]) => {
-    // 是否进入可视区
-    if (isIntersecting) {
-      stop(); // 停止监听
-      apiFn(); // 发送请求获取数据
+  const { stop } = useIntersectionObserver(
+    target,
+    ([{ isIntersecting }]) => {
+      // 是否进入可视区
+      if (isIntersecting) {
+        stop(); // 停止监听
+        apiFn(); // 发送请求获取数据
+      }
+    },
+    {
+      threshold: 0,
     }
-  });
-  return target
+  );
+  return target;
 }

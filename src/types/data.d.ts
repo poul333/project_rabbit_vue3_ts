@@ -60,3 +60,42 @@ export type Brand = {
   desc: string;
   place: string;
 };
+
+// 首页商品区块数据类型
+export type HomeProduct = {
+  id: string;
+  name: string;
+  picture: string;
+  saleInfo: string;
+  children: {
+    id: string;
+    name: string;
+  }[];
+  goods: {
+    id: string;
+    name: string;
+    desc: string;
+    price: string;
+    picture: string;
+    discount?: any;
+    orderNum: number;
+  }[];
+};
+
+// 首页最新专题数据类型
+export type Special = {
+  creator: string;
+  isDelete: number;
+  createTime: string;
+  updateTime: string;
+  id: string;
+  classificationId: string;
+  title: string;
+  summary: string;
+  lowestPrice: number;
+  cover: string;
+  detailsUrl: string;
+  collectNum: number;
+  viewNum: number;
+  replyNum: number;
+};
