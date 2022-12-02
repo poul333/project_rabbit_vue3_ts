@@ -5,12 +5,17 @@ import XtxCarousel from "./carousel/index.vue";
 import XtxMore from "./more/index.vue";
 import { App } from "vue";
 import DefaultImg from "@/assets/images/200.png";
+import Bread from "./Bread/index.vue";
+import BreadItem from "./Bread/Item.vue";
+
 export default {
   install(app: App) {
     // 构建组件
     // app.component("XtxSkeleton", XtxSkeleton);
     app.component(XtxCarousel.name, XtxCarousel);
     app.component(XtxMore.name, XtxMore);
+    app.component(Bread.name, Bread);
+    app.component(BreadItem.name, BreadItem);
 
     // 构建自定义指令
     // 图片懒加载 v-lazy 指令

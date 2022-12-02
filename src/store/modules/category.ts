@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import request from "@/utils/request";
-import { ApiRes, CategoryItem } from "@/types/data";
+import { ApiRes, CategoryItem, TopCategory, SubCategory } from "@/types/data";
 import { topCategory } from "../constants";
 const defaultCategory = topCategory.map((item) => {
   return {
@@ -12,7 +12,8 @@ export default defineStore("category", {
   state() {
     return {
       list: defaultCategory as CategoryItem[],
-      // list: [] as CategoryItem[],
+      topCategory: {} as TopCategory,
+      subCategory: {} as SubCategory,
     };
   },
 
@@ -37,6 +38,27 @@ export default defineStore("category", {
     hide(id: string) {
       const itemObj = this.list.find((item) => item.id === id);
       itemObj!.open = false;
+    },
+
+    async getTopCategory(id: string) {
+      const res = await request.get<ApiRes<TopCategory>>("/category", {
+        params: {
+          id,
+        },
+      });
+      this.topCategory = res.data.result;
+    },
+
+    async getSubFilter(id: string) {
+      const res = await request.get<ApiRes<SubCategory>>(
+        "/category/sub/filter",
+        {
+          params: {
+            id,
+          },
+        }
+      );
+      this.subCategory = res.data.result;
     },
   },
 });

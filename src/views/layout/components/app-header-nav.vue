@@ -10,7 +10,7 @@ const { category } = useStore()
         <li class="home">
             <RouterLink to="/">首页</RouterLink>
         </li>
-        <li v-for="(item, index) in category.list" :key="index" @mouseenter="category.show(item.id)"
+        <li v-for="(item, index) in category.list" :key="index" @mousemove="category.show(item.id)"
             @mouseleave="category.hide(item.id)">
             <!-- 一级分类的导航按钮 -->
             <RouterLink @click="category.hide(item.id)" :to="item.id ? `/category/${item.id}` : '/'">{{ item.name }}
