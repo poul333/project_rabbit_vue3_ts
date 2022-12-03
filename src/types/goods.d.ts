@@ -24,3 +24,4 @@ export type GoodsInfo = {
     name: string;
   }[];
 };
+
