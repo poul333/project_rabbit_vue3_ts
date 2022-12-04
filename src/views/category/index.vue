@@ -54,10 +54,10 @@ const { topCategory } = storeToRefs(category)
                 <h3>全部分类</h3>
                 <ul>
                     <li v-for="item in topCategory.children" :key="item.id">
-                        <a href="javascript:;">
+                        <router-link :to="`/category/sub/${item.id}`">
                             <img v-lazy="item.picture">
                             <p>{{ item.name }}</p>
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
             </div>

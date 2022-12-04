@@ -6,7 +6,7 @@ defineProps<{
     goods: GoodsInfo
 }>()
 
-const userAddress = ref('广东省 广州市 越秀区')
+const userAddress = ref('')
 
 const changeCity = (cityResult: CityResult) => {
     // console.log(cityResult);

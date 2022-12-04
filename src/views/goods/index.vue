@@ -6,6 +6,7 @@ import { storeToRefs } from 'pinia';
 import GoodsImage from './components/goods-image.vue'
 import GoodsSales from './components/goods-sales.vue'
 import GoodsName from './components/goods-name.vue'
+import GoodsSku from './components/goods-sku.vue'
 
 const { goods } = useStore()
 const route = useRoute()
@@ -14,9 +15,23 @@ watchEffect(() => {
     const id = route.params.id as string
     // 必须id存在，且是商品页才发请求
     if (id && route.fullPath === `/goods/${id}`) {
+        // 置空数据
+        goods.resetGoodsInfo()
+
         goods.getGoodsInfo(id)
     }
 })
+
+const changeSku = (skuId: string) => {
+    // console.log(skuId);
+    const sku = info.value.skus.find((item)=>item.id === skuId)
+    if(sku){
+        info.value.inventory = sku.inventory    // 更新库存
+        info.value.price = sku.price    // 更新价格
+        info.value.oldPrice = sku.oldPrice      // 更新原价
+    }
+}
+
 </script>
 <template>
     <div class="xtx-goods-page">
@@ -42,7 +57,10 @@ watchEffect(() => {
                         <GoodsSales></GoodsSales>
                     </div>
                     <div class="spec">
+                        <!-- 商品名称 -->
                         <GoodsName :goods="info"></GoodsName>
+                        <!-- SKU组件,选择规格 -->
+                        <GoodsSku :goods="info" @changeSku="changeSku"></GoodsSku>
                     </div>
                 </div>
                 <!-- 商品详情 -->

@@ -19,5 +19,10 @@ export default defineStore("goods", {
       });
       this.info = res.data.result;
     },
+
+    // 置空数据
+    resetGoodsInfo() {
+      this.info = {} as GoodsInfo;
+    },
   },
 });
