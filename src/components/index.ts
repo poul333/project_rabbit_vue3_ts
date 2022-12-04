@@ -8,6 +8,7 @@ import DefaultImg from "@/assets/images/200.png";
 import Bread from "./Bread/index.vue";
 import BreadItem from "./Bread/Item.vue";
 import XtxCity from "./city/index.vue";
+import XtxNumbox from "./numbox/index.vue";
 
 export default {
   install(app: App) {
@@ -18,6 +19,7 @@ export default {
     app.component(Bread.name, Bread);
     app.component(BreadItem.name, BreadItem);
     app.component(XtxCity.name, XtxCity);
+    app.component(XtxNumbox.name, XtxNumbox);
 
     // 构建自定义指令
     // 图片懒加载 v-lazy 指令
