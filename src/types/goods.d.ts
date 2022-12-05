@@ -1,3 +1,12 @@
+// 商品的详情类型
+type GoodsDetail = {
+  pictures: string[];
+  properties: {
+    name: string;
+    value: string;
+  }[];
+};
+
 // Sku类型,最小库存单元 => 决定是否禁用
 export type Sku = {
   id: string;
@@ -53,4 +62,5 @@ export type GoodsInfo = {
   }[];
   specs: Spec[];
   skus: Sku[];
+  details: GoodsDetail;
 };
