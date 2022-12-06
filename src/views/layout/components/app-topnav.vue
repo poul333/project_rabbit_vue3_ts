@@ -1,15 +1,26 @@
-<script lang="ts" setup name="AppTopnav"></script>
+<script lang="ts" setup name="AppTopnav">
+import useStore from '@/store';
+const { user } = useStore()
+</script>
 
 <template>
     <nav class="app-topnav">
         <div class="container">
             <ul>
-                <li>
-                    <a href="javascript:;"><i class="iconfont icon-user"></i>周杰伦</a>
-                </li>
-                <li><a href="javascript:;">退出登录</a></li>
-                <li><a href="javascript:;">请先登录</a></li>
-                <li><a href="javascript:;">免费注册</a></li>
+                <template v-if="user.profile.token">
+                    <li>
+                        <a href="javascript:;"><i class="iconfont icon-user"></i>{{ user.profile.nickname }}</a>
+                    </li>
+                    <li><a href="javascript:;">退出登录</a></li>
+                </template>
+
+                <template v-else>
+                    <li>
+                        <RouterLink to="/login">请先登录</RouterLink>
+                    </li>
+                    <li><a href="javascript:;">免费注册</a></li>
+                </template>
+
                 <li><a href="javascript:;">我的订单</a></li>
                 <li><a href="javascript:;">会员中心</a></li>
                 <li><a href="javascript:;">帮助中心</a></li>

@@ -10,6 +10,8 @@ import BreadItem from "./Bread/Item.vue";
 import XtxCity from "./city/index.vue";
 import XtxNumbox from "./numbox/index.vue";
 import XtxButton from "./button/index.vue";
+import XtxCheckbox from "./checkbox/index.vue";
+import XtxMessage from "./message/message.vue";
 
 export default {
   install(app: App) {
@@ -22,6 +24,8 @@ export default {
     app.component(XtxCity.name, XtxCity);
     app.component(XtxNumbox.name, XtxNumbox);
     app.component(XtxButton.name, XtxButton);
+    app.component(XtxCheckbox.name, XtxCheckbox);
+    app.component(XtxMessage.name, XtxMessage);
 
     // 构建自定义指令
     // 图片懒加载 v-lazy 指令
