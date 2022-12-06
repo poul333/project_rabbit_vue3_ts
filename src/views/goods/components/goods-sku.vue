@@ -1,6 +1,6 @@
 <script setup lang="ts" name="GoodsSku">
 import { GoodsInfo, Spec, SpecValue } from '@/types/goods'
-import bwPowerSet from '@/types/bwPowerSet';
+import bwPowerSet from '@/utils/bwPowerSet';
 const props = defineProps<{
     goods: GoodsInfo,
     skuId?: string

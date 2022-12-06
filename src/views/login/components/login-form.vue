@@ -2,6 +2,8 @@
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useField, useForm } from 'vee-validate' // 引入验证规则
+import { useIntervalFn } from '@vueuse/core'
+import { useCountDown } from '@/utils/hooks'
 import Message from '@/components/message';
 import useStore from '@/store';
 const router = useRouter()
@@ -19,6 +21,17 @@ const changeFn = () => {
 
 // 添加校验
 const { validate, resetForm } = useForm({
+
+    // 设置初始值
+    initialValues: {
+        mobile: '13012345678',
+        code: '123456',
+        account: 'cdshi0001',
+        password: '123456',
+        isAgree: true
+    },
+
+    // 设置校验规则 
     validationSchema: {
         account(value: string) {
             if (!value) return '请输入用户名'
@@ -60,10 +73,17 @@ const { value: isAgree, errorMessage: isAgreeError } = useField<boolean>('isAgre
 const login = async () => {
     // 登录前的校验
     const res = await validate()
-    // 如果校验没有通过，return
-    if (!res.valid) return
 
-    await user.login(account.value, password.value)
+    if (type.value === 'account') {
+        // 账号登录   如果账号 | 密码 | 同意许可 未通过，return
+        if (res.errors.account || res.errors.password || res.errors.isAgree) return
+        await user.login(account.value, password.value)
+    } else {
+        // 短信验证码登录   如果手机号 | 验证码 | 同意许可 未通过，return
+        if (res.errors.mobile || res.errors.code || res.errors.isAgree) return
+        await user.mobileLogin(mobile.value, code.value)
+    }
+
     Message.success('登录成功')
     router.push('/')
 }
@@ -73,31 +93,28 @@ watch(type, () => {
     resetForm()
 })
 
+
 // 发送验证码
+//      倒计时
+const { time, resume, start } = useCountDown()
+
 const mobileRef = ref<HTMLInputElement | null>(null)
-const time = ref(0)   // 倒计时秒数
-let timeId = -1     //定时器id
+
+// let timeId = -1     //定时器id
 const send = async () => {
     //  如果是在倒计时的过程中，send点击事件不应该被触发
     if (time.value > 0) return
 
-    // const res = await validateMobile()
-    // if (!res.valid) {
-    //     mobileRef.value?.focus()
-    //     return
-    // }
-    // await user.sendMobileCode(mobile.value)
-    // Message.success('获取验证码成功')
+    const res = await validateMobile()
+    if (!res.valid) {
+        mobileRef.value?.focus()
+        return
+    }
+    await user.sendMobileCode(mobile.value)
+    Message.success('获取验证码成功')
 
     // 实现验证码倒计时
-    time.value = 5
-    timeId = window.setInterval(() => {
-        time.value--
-        if (time.value <= 0) {
-            clearInterval(timeId)
-        }
-    }, 1000)
-
+    start()
 }
 
 </script>
@@ -159,7 +176,10 @@ const send = async () => {
             <a href="javascript:;" class="btn" @click="login">登录</a>
         </div>
         <div class="action">
-            <img src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_7.png" alt="" />
+            <a
+                href="https://graph.qq.com/oauth2.0/authorize?client_id=100556005&amp;response_type=token&amp;scope=all&amp;redirect_uri=http%3A%2F%2Fwww.corho.com%3A8080%2F%23%2Flogin%2Fcallback"><img
+                    src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_7.png" alt="QQ登录"
+                    border="0" /></a>
             <div class="url">
                 <a href="javascript:;">忘记密码</a>
                 <a href="javascript:;">免费注册</a>

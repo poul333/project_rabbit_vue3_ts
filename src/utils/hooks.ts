@@ -1,5 +1,5 @@
-import { useIntersectionObserver } from "@vueuse/core";
-import { ref } from "vue";
+import { useIntersectionObserver, useIntervalFn } from "@vueuse/core";
+import { ref, onUnmounted } from "vue";
 
 // 封装组件数据懒加载
 export function useLazyData(apiFn: () => void) {
@@ -19,4 +19,36 @@ export function useLazyData(apiFn: () => void) {
     }
   );
   return target;
+}
+
+// 封装倒计时hook
+export function useCountDown(count: number = 60) {
+  const time = ref(0); // 倒计时秒数
+  const { pause, resume } = useIntervalFn(
+    () => {
+      time.value--;
+      if (time.value <= 0) pause();
+    },
+    1000,
+    {
+      immediate: false, // 默认关闭
+    }
+  );
+
+  // 实现验证码倒计时
+  const start = () => {
+    time.value = count;
+    resume();
+  };
+
+  // 组件被卸载，清除定时器
+  onUnmounted(() => {
+    pause();
+  });
+
+  return {
+    time,
+    resume,
+    start,
+  };
 }

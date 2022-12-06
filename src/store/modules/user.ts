@@ -2,12 +2,13 @@ import { defineStore } from "pinia";
 import request from "@/utils/request";
 import { Profile } from "@/types/user";
 import { ApiRes } from "@/types/data";
+import { getProfile, setProfile, removeProfile } from "@/utils/storage";
 
 export default defineStore("user", {
   state() {
     return {
       // 个人信息
-      profile: {} as Profile,
+      profile: getProfile() || {},
     };
   },
   actions: {
@@ -18,6 +19,8 @@ export default defineStore("user", {
         password,
       });
       this.profile = res.data.result;
+      // 存至本地
+      setProfile(res.data.result);
     },
     // 获取短信验证码
     async sendMobileCode(mobile: string) {
@@ -26,6 +29,22 @@ export default defineStore("user", {
           mobile,
         },
       });
+    },
+    // 短信登录接口
+    async mobileLogin(mobile: string, code: string) {
+      const res = await request.post<ApiRes<Profile>>("/login/code", {
+        mobile,
+        code,
+      });
+      // 1. 保存用户信息到 state 中
+      this.profile = res.data.result;
+      setProfile(res.data.result);
+    },
+
+    // 退出登录
+    logout() {
+      this.profile = {} as Profile;
+      removeProfile();
     },
   },
 });
