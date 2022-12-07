@@ -22,15 +22,7 @@ export default defineStore("user", {
       // 存至本地
       setProfile(res.data.result);
     },
-    // 获取短信验证码
-    async sendMobileCode(mobile: string) {
-      await request.get("/login/code", {
-        params: {
-          mobile,
-        },
-      });
-    },
-    // 短信登录接口
+    // 短信登录
     async mobileLogin(mobile: string, code: string) {
       const res = await request.post<ApiRes<Profile>>("/login/code", {
         mobile,
@@ -40,7 +32,26 @@ export default defineStore("user", {
       this.profile = res.data.result;
       setProfile(res.data.result);
     },
+    // qq登录
+    //  source: 1为pc，2为webapp，3为微信小程序, 4为Android, 5为ios, 6为qq, 7为微信
+    async qqLogin(openId: string) {
+      const res = await request.post<ApiRes<Profile>>("/login/social", {
+        unionId: openId,
+        source: 6,
+      });
+      // 1. 保存用户信息到 state 中
+      this.profile = res.data.result;
+      setProfile(res.data.result);
+    },
 
+    // 获取短信验证码
+    async sendMobileCode(mobile: string) {
+      await request.get("/login/code", {
+        params: {
+          mobile,
+        },
+      });
+    },
     // 退出登录
     logout() {
       this.profile = {} as Profile;

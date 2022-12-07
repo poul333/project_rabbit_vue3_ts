@@ -35,7 +35,13 @@ instance.interceptors.response.use(
       Message.error("网络异常，请稍后再试");
     } else {
       // 有响应，正常给错误提示信息
-      Message.error(error.response.data.message);
+      // {message: "三方登录失败", code: "501"}
+      const { code, message } = error.response.data;
+      if (code === "501" && message === "三方登录失败") {
+        Message.warning("当前QQ号未与平台账号关联");
+      } else {
+        Message.error(error.response.data.message);
+      }
     }
     return Promise.reject(error);
   }
