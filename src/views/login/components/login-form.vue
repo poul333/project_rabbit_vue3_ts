@@ -26,9 +26,9 @@ const { validate, resetForm } = useForm({
 
     // 设置初始值
     initialValues: {
-        mobile: '13012345678',
+        mobile: '17799999999',
         code: '123456',
-        account: 'cdshi0001',
+        account: 'poulcoder',
         password: '123456',
         isAgree: true
     },

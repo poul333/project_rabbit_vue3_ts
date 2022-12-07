@@ -9,8 +9,9 @@ import GoodsName from './components/goods-name.vue'
 import GoodsSku from './components/goods-sku.vue'
 import GoodsDetail from './components/goods-detail.vue'
 import GoodsHot from './components/goods-hot.vue'
+import Message from '@/components/message';
 
-const { goods } = useStore()
+const { goods, cart } = useStore()
 const route = useRoute()
 const { info } = storeToRefs(goods)
 
@@ -27,14 +28,29 @@ watchEffect(() => {
     }
 })
 
+const currentSkuId = ref('')
 const changeSku = (skuId: string) => {
-    // console.log(skuId);
+    currentSkuId.value = skuId
     const sku = info.value.skus.find((item) => item.id === skuId)
     if (sku) {
         info.value.inventory = sku.inventory    // 更新库存
         info.value.price = sku.price    // 更新价格
         info.value.oldPrice = sku.oldPrice      // 更新原价
     }
+}
+
+const addCart = async () => {
+    // 判断是否选中了某个sku
+    if (!currentSkuId.value) {
+        Message.warning('请选择完整商品规格')
+        return
+    }
+    // 发送请求，加入购物车
+    await cart.addCart({
+        skuId: currentSkuId.value,
+        count: count.value
+    })
+    Message.success('加入购物车成功')
 }
 
 </script>
@@ -55,7 +71,6 @@ const changeSku = (skuId: string) => {
                     <XtxBreadItem>{{ info.name }}</XtxBreadItem>
                 </XtxBread>
                 <!-- 商品信息 -->
-                <!-- 商品信息 -->
                 <div class="goods-info">
                     <div class="media">
                         <GoodsImage :images="info.mainPictures"></GoodsImage>
@@ -69,7 +84,7 @@ const changeSku = (skuId: string) => {
                         <!-- 数字框组件 -->
                         <XtxNumbox v-model="count" :min="2" :max="10"></XtxNumbox>
                         <!-- 按钮组件 -->
-                        <XtxButton type="primary" style="margin-top: 20px;">
+                        <XtxButton @click="addCart" type="primary" style="margin-top: 20px;">
                             加入购物车
                         </XtxButton>
                     </div>

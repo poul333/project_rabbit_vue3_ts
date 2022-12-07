@@ -38,6 +38,8 @@ const changeSelected = (spec: Spec, specValue: SpecValue) => {
         const skuId = result[0]  // 因为所有规格都被选中，所以此时skuId，就是result的唯一值
         // 子传父
         emit('changeSku', skuId)
+    } else {
+        emit('changeSku', '')
     }
 }
 

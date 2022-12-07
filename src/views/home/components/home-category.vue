@@ -42,7 +42,7 @@ const goods = computed(() => {
             <ul>
                 <li v-for="(item, index) in goods" :key="item.id">
                     <!-- <RouterLink :to="`/product/${item.id}`"> -->
-                    <RouterLink to="/">
+                    <RouterLink :to="`/goods/${item.id}`">
                         <img :src="item.picture" alt="">
                         <div class="info">
                             <p class="name ellipsis-2">{{ item.name }}</p>
