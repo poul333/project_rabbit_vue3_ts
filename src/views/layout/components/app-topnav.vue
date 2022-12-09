@@ -3,12 +3,20 @@
 import useStore from '@/store';
 import Message from '@/components/message';
 import router from '@/router';
+import Confirm from '@/components/confirm';
 // const router = useRouter()
 const { user } = useStore()
 const logoutFn = () => {
-    user.logout()
-    router.push('/login')
-    Message.success('退出登录成功')
+    Confirm({
+        title: '温馨提示',
+        text: '确认退出吗?'
+    }).then(() => {
+        user.logout()
+        router.push('/login')
+        Message.success('退出登录成功')
+    }).catch(() => {
+        console.log('取消');
+    })
 }
 
 </script>

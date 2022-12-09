@@ -14,11 +14,11 @@ const changeHandle = () => {
     emit('update:modelValue', !props.modelValue)
     emit('change', !props.modelValue)
 }
-
 </script>
 
 <template>
     <div class="xtx-checkbox" @click="changeHandle">
+        <!-- 通过icon图标显示状态的切换 -->
         <i v-if="modelValue" class="iconfont icon-checked"></i>
         <i v-else class="iconfont icon-unchecked"></i>
         <span>

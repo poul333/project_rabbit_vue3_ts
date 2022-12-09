@@ -9,12 +9,12 @@ export interface CartItem {
   picture: string;
   price: string;
   nowPrice: string;
-  nowOriginalPrice: string;
+  nowOriginalPrice?: string;
   selected: boolean;
   stock: number;
   count: number;
   isEffective: boolean;
   // discount?: any;
-  isCollect: boolean;
-  postFee: number;
+  isCollect?: boolean;
+  postFee?: number;
 }

@@ -10,6 +10,7 @@ import GoodsSku from './components/goods-sku.vue'
 import GoodsDetail from './components/goods-detail.vue'
 import GoodsHot from './components/goods-hot.vue'
 import Message from '@/components/message';
+import { CartItem } from '@/types/cart';
 
 const { goods, cart } = useStore()
 const route = useRoute()
@@ -45,11 +46,27 @@ const addCart = async () => {
         Message.warning('请选择完整商品规格')
         return
     }
+
+    // 根据 currentSkuId.value 去 info.value.skus 找对应的 sku
+    const sku = info.value.skus.find((item) => item.id === currentSkuId.value)
+    const arr = sku?.specs.map((item) => `${item.name}:${item.valueName}`)
+    const attrsText = arr?.join(' ')
+
     // 发送请求，加入购物车
     await cart.addCart({
+        // 本地添加
+        id: info.value.id,
+        name: info.value.name,
+        picture: info.value.mainPictures[0],
+        price: info.value.price,
+        count: count.value,
         skuId: currentSkuId.value,
-        count: count.value
-    })
+        attrsText: attrsText || '',
+        selected: true,
+        nowPrice: info.value.price,
+        stock: info.value.inventory,
+        isEffective: true,
+    } as CartItem)
     Message.success('加入购物车成功')
 }
 

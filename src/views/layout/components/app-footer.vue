@@ -63,6 +63,7 @@
                         <a href="javascript:;">友情链接</a>
                     </p>
                     <p>CopyRight © 小兔鲜儿</p>
+                    <div><a href="http://beian.miit.gov.cn/" one-link-mark="yes">湘ICP备2022025482号</a></div>
                 </div>
             </div>
         </div>

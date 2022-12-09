@@ -3,6 +3,7 @@ import request from "@/utils/request";
 import { Profile } from "@/types/user";
 import { ApiRes } from "@/types/data";
 import { getProfile, setProfile, removeProfile } from "@/utils/storage";
+import useStore from "..";
 
 export default defineStore("user", {
   state() {
@@ -21,7 +22,12 @@ export default defineStore("user", {
       this.profile = res.data.result;
       // 存至本地
       setProfile(res.data.result);
+
+      // 登录后合并购物车
+      const { cart } = useStore();
+      cart.mergeLocalCart();
     },
+
     // 短信登录
     async mobileLogin(mobile: string, code: string) {
       const res = await request.post<ApiRes<Profile>>("/login/code", {
@@ -31,7 +37,12 @@ export default defineStore("user", {
       // 1. 保存用户信息到 state 中
       this.profile = res.data.result;
       setProfile(res.data.result);
+
+      // 登录后合并购物车
+      const { cart } = useStore();
+      cart.mergeLocalCart();
     },
+
     // qq登录
     //  source: 1为pc，2为webapp，3为微信小程序, 4为Android, 5为ios, 6为qq, 7为微信
     async qqLogin(openId: string) {
@@ -42,6 +53,10 @@ export default defineStore("user", {
       // 1. 保存用户信息到 state 中
       this.profile = res.data.result;
       setProfile(res.data.result);
+
+      // 登录后合并购物车
+      const { cart } = useStore();
+      cart.mergeLocalCart();
     },
     // 提供绑定的 action 登录
     async qqBindLogin(openId: string, mobile: string, code: string) {
@@ -52,6 +67,10 @@ export default defineStore("user", {
       });
       this.profile = res.data.result;
       setProfile(res.data.result);
+
+      // 登录后合并购物车
+      const { cart } = useStore();
+      cart.mergeLocalCart();
     },
 
     // 获取短信验证码
@@ -92,8 +111,12 @@ export default defineStore("user", {
 
     // 退出登录
     logout() {
+      // 清除个人信息
       this.profile = {} as Profile;
       removeProfile();
+      // 清空本地购物车信息
+      const { cart } = useStore();
+      cart.clearCart();
     },
   },
 });

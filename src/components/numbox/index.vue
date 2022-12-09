@@ -12,6 +12,10 @@ const props = defineProps({
     max: {
         type: Number,
         default: 20
+    },
+    hasLabel: {
+        type: Boolean,
+        default: true
     }
 })
 
@@ -43,7 +47,7 @@ const handleChange = (e: Event) => {
 </script>
 <template>
     <div class="xtx-numbox">
-        <div class="label">数量</div>
+        <div class="label" v-if="hasLabel">数量</div>
         <div class="numbox">
             <a href="javascript:;" @click="sub">-</a>
             <input type="text" :value="modelValue" @change="handleChange" />

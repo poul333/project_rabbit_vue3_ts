@@ -6,14 +6,14 @@ cart.getCartList()
 
 <template>
     <div class="cart">
-        <a class="curr" href="javascript:;">
-            <i class="iconfont icon-cart"></i><em>{{ cart.effectiveList.length }}</em>
+        <a @click="$router.push('/cart')" class="curr" href="javascript:;">
+            <i class="iconfont icon-cart"></i><em>{{ cart.effectiveListCounts }}</em>
         </a>
         <!-- 弹层 => 1.购物车有商品才显示， 2.如果是非购物车页面才显示 -->
         <div class="layer" v-if="(cart.effectiveList.length > 0 && $route.path !== '/cart')">
             <div class="list">
                 <div class="item" v-for="item in cart.effectiveList" :key="item.skuId">
-                    <RouterLink to="">
+                    <RouterLink :to="`/goods/${item.id}`">
                         <img :src="item.picture" alt="" />
                         <div class="center">
                             <p class="name ellipsis-2">
@@ -35,7 +35,7 @@ cart.getCartList()
                     <p>共 {{ cart.effectiveListCounts }} 件商品</p>
                     <p>&yen;{{ cart.effectiveListPrice }}</p>
                 </div>
-                <XtxButton type="plain">去购物车结算</XtxButton>
+                <XtxButton type="plain" @click="$router.push('/cart')">去购物车结算</XtxButton>
             </div>
         </div>
     </div>
