@@ -1,7 +1,9 @@
 <script setup lang="ts" name="Cart">
+import { useRouter } from 'vue-router';
 import Confirm from '@/components/confirm';
 import Message from '@/components/message';
 import useStore from '@/store';
+const router = useRouter()
 const { cart } = useStore()
 const delCart = async (skuIds: string[]) => {
     await Confirm({
@@ -23,6 +25,16 @@ const handleChange = (skuId: string, checked: boolean) => {
 // 处理数量修改
 const handleNumChange = (skuId: string, num: number) => {
     cart.updateCart(skuId, { count: num })
+}
+
+// 去结算
+const goCheck = () => {
+    // 如果购物车没有选择商品，不能进行结算
+    if (cart.selectedListCounts === 0) {
+        Message.warning('未选择商品')
+        return
+    }
+    router.push('/member/checkout')
 }
 
 </script>
@@ -107,7 +119,7 @@ const handleNumChange = (skuId: string, num: number) => {
                 <div class="total">
                     共 {{ cart.effectiveListCounts }} 件有效商品，已选择 {{ cart.selectedListCounts }} 件，商品合计：
                     <span class="red">¥{{ cart.selectedListPrice }}</span>
-                    <XtxButton type="primary">下单结算</XtxButton>
+                    <XtxButton type="primary" @click="goCheck">下单结算</XtxButton>
                 </div>
             </div>
         </div>

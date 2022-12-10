@@ -1,6 +1,6 @@
 <script lang="ts" setup name="LoginForm">
 import { ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useField, useForm } from 'vee-validate' // 引入验证规则
 import { useIntervalFn } from '@vueuse/core'
 import { useCountDown } from '@/utils/hooks'
@@ -9,6 +9,7 @@ import useStore from '@/store';
 import { accountRule, passwordRule, mobileRule, codeRule, isAgreeRule } from '@/utils/validate'
 
 const router = useRouter()
+const route = useRoute()
 const { user } = useStore()
 const type = ref<'account' | 'mobile'>('account')       // 控制切换 
 // const form = ref({
@@ -66,8 +67,11 @@ const login = async () => {
         await user.mobileLogin(mobile.value, code.value)
     }
 
+    // 尝试获取地址栏的查询参数（如果有，跳转到该参数指定的地址，没有则跳转到首页）
+    const redirectUrl = (route.query.redirectUrl as string) || '/'
+
     Message.success('登录成功')
-    router.push('/')
+    router.push(redirectUrl)
 }
 
 // 表单验证切换重置

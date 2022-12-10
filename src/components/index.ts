@@ -1,9 +1,9 @@
 // 插件文件，统一注册全局组件, 自定义全局指令
 // import XtxSkeleton from "@/components/skeleton/index.vue";
+import { App } from "vue";
 import { useIntersectionObserver } from "@vueuse/core";
 import XtxCarousel from "./carousel/index.vue";
 import XtxMore from "./more/index.vue";
-import { App } from "vue";
 import DefaultImg from "@/assets/images/200.png";
 import Bread from "./Bread/index.vue";
 import BreadItem from "./Bread/Item.vue";
@@ -12,6 +12,8 @@ import XtxNumbox from "./numbox/index.vue";
 import XtxButton from "./button/index.vue";
 import XtxCheckbox from "./checkbox/index.vue";
 import XtxMessage from "./message/message.vue";
+import XtxDialog from "./dialog/index.vue";
+import XtxSwitch from "./switch/index.vue";
 
 export default {
   install(app: App) {
@@ -26,6 +28,10 @@ export default {
     app.component(XtxButton.name, XtxButton);
     app.component(XtxCheckbox.name, XtxCheckbox);
     app.component(XtxMessage.name, XtxMessage);
+    // app.component(XtxDialog.nama, XtxDialog);
+    // app.component(XtxSwitch.nama, XtxSwitch);
+    app.component("XtxSwitch", XtxSwitch);
+    app.component("XtxDialog", XtxDialog);
 
     // 构建自定义指令
     // 图片懒加载 v-lazy 指令

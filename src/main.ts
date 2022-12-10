@@ -8,6 +8,8 @@ import "@/assets/styles/common.less";
 import XtxSkeleton from "@/components/skeleton/index.vue";
 import XtxUI from "./components";
 // import XtxCarousel from "@/components/carousel/index.vue";
+// import XtxSwitch from "@/components/switch/index.vue";
+// import XtxDialog from "@/components/dialog/index.vue";
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -16,6 +18,8 @@ pinia.use(piniaPluginPersistedstate); // pinia数据持久化
 app.component("XtxSkeleton", XtxSkeleton);
 app.use(XtxUI);
 // app.component(XtxCarousel.name, XtxCarousel);
+// app.component("XtxSwitch", XtxSwitch);
+// app.component("XtxDialog", XtxDialog);
 
 app.use(router);
 app.use(pinia);
