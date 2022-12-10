@@ -36,7 +36,7 @@ onMounted(async () => {
                     支付金额：<span>￥{{ order?.payMoney?.toFixed(2) }}</span>
                 </p>
                 <div class="btn">
-                    <XtxButton type="primary" style="margin-right: 20px">
+                    <XtxButton type="primary" style="margin-right: 20px" @click="$router.push('/member/order')">
                         查看订单
                     </XtxButton>
                     <XtxButton type="gray" @click="$router.push('/')">进入首页</XtxButton>

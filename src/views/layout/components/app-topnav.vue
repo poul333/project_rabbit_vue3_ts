@@ -26,7 +26,7 @@ const logoutFn = () => {
         <div class="container">
             <ul>
                 <template v-if="user.profile.token">
-                    <li>
+                    <li @click="$router.push('/member')">
                         <a href="javascript:;"><i class="iconfont icon-user"></i>{{ (user.profile.nickname ||
                                 user.profile.account)
                         }}</a>
@@ -41,7 +41,7 @@ const logoutFn = () => {
                     <li><a href="javascript:;">免费注册</a></li>
                 </template>
 
-                <li><a href="javascript:;">我的订单</a></li>
+                <li><a @click="$router.push('/member/order')" href="javascript:;">我的订单</a></li>
                 <li><a href="javascript:;">会员中心</a></li>
                 <li><a href="javascript:;">帮助中心</a></li>
                 <li><a href="javascript:;">关于我们</a></li>
