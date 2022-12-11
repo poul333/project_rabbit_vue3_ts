@@ -57,6 +57,10 @@ const router = createRouter({
             },
           ],
         },
+        {
+          path: "/playground",
+          component: () => import("@/views/playground/index.vue"),
+        },
       ],
     },
     {

@@ -5,7 +5,7 @@ import { resolve } from "path";
 // 组件name插件
 import vueSetupExtend from "vite-plugin-vue-setup-extend";
 // 使用jsx
-// import vueJsx from "@vitejs/plugin-vue";
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,7 +14,7 @@ export default defineConfig({
       reactivityTransform: true,
     }),
     vueSetupExtend(),
-    // vueJsx(),
+    vueJsx(),
   ],
   // 配置路径别名
   resolve: {

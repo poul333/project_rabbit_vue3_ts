@@ -11,6 +11,8 @@ import XtxCheckbox from "@/components/checkbox/index.vue";
 import XtxMessage from "@/components/message/message.vue";
 import XtxDialog from "@/components/dialog/index.vue";
 import XtxSwitch from "@/components/switch/index.vue";
+import XtxTabs from "@/components/tabs/index.vue";
+import XtxTabsPane from "@/components/tabs/pane.vue";
 
 // declare module "@vue/runtime-core" {
 declare module "vue" {
@@ -27,5 +29,7 @@ declare module "vue" {
     XtxMessage: typeof XtxMessage;
     XtxDialog: typeof XtxDialog;
     XtxSwitch: typeof XtxSwitch;
+    XtxTabs: typeof XtxTabs;
+    XtxTabsPane: typeof XtxTabsPane;
   }
 }

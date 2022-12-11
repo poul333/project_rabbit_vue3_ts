@@ -14,6 +14,8 @@ import XtxCheckbox from "./checkbox/index.vue";
 import XtxMessage from "./message/message.vue";
 import XtxDialog from "./dialog/index.vue";
 import XtxSwitch from "./switch/index.vue";
+import XtxTabs from "./tabs/index.vue";
+import XtxTabsPane from "./tabs/pane.vue";
 
 export default {
   install(app: App) {
@@ -28,10 +30,10 @@ export default {
     app.component(XtxButton.name, XtxButton);
     app.component(XtxCheckbox.name, XtxCheckbox);
     app.component(XtxMessage.name, XtxMessage);
-    // app.component(XtxDialog.nama, XtxDialog);
-    // app.component(XtxSwitch.nama, XtxSwitch);
-    app.component("XtxSwitch", XtxSwitch);
-    app.component("XtxDialog", XtxDialog);
+    app.component(XtxDialog.name, XtxDialog);
+    app.component(XtxSwitch.name, XtxSwitch);
+    app.component(XtxTabs.name, XtxTabs);
+    app.component(XtxTabsPane.name, XtxTabsPane);
 
     // 构建自定义指令
     // 图片懒加载 v-lazy 指令
